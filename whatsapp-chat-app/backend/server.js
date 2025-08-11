@@ -7,17 +7,22 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+const allowedOrigins = (process.env.CORS_ORIGIN || 'https://live-projects1-4s-git-main-dhanushs-projects-45c3fd6e.vercel.app')
+  .split(',')
+  .map(o => o.trim());
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    const isAllowed = allowedOrigins.some(allowed => origin === allowed || (allowed.endsWith('.vercel.app') && origin.endsWith('.vercel.app')));
+    callback(isAllowed ? null : new Error('Not allowed by CORS'), isAllowed);
+  },
   credentials: true
 }));
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/whatsapp', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://gayatridhanush3:ZpPeCtC952CEwMvq@cluster0.sovcbsw.mongodb.net/whatsapp?retryWrites=true&w=majority&appName=Cluster0');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
