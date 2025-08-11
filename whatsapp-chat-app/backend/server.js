@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-const allowedOrigins = (process.env.CORS_ORIGIN || 'https://live-projects1-4s-git-main-dhanushs-projects-45c3fd6e.vercel.app')
+const allowedOrigins = (process.env.CORS_ORIGIN)
   .split(',')
   .map(o => o.trim());
 
@@ -22,7 +22,7 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://gayatridhanush3:ZpPeCtC952CEwMvq@cluster0.sovcbsw.mongodb.net/whatsapp?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect(process.env.MONGODB_URI);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
