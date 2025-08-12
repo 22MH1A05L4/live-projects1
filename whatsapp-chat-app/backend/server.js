@@ -52,14 +52,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-app.get('/api', (req, res) => {
-  res.json({ status: 'OK', message: 'API is working' });
-});
-
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
+
+app.get('/api', (req, res) => {
+  res.json({ status: 'OK', message: 'API is working' });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
