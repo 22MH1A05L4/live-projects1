@@ -42,8 +42,17 @@ app.use('/api', conversationRoutes);
 app.use('/api', messageRoutes);
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'WhatsApp Chat API is running' });
+});
+
+app.get('/api', (req, res) => {
+  res.json({ status: 'OK', message: 'API is working' });
+});
+
+
+app.get('/', (req, res) => {
+  res.send('Server is running ✅');
 });
 
 // Error handling middleware
@@ -55,10 +64,6 @@ app.use((err, req, res, next) => {
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
-});
-
-app.get('/api', (req, res) => {
-  res.json({ status: 'OK', message: 'API is working' });
 });
 
 
